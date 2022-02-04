@@ -3,7 +3,7 @@ const Flat = ({price, name, img}) => {
     <div className="flat">
       <img alt={name} src={img} className="flat-picture" />
         <div className="flat-title">
-          ${price}/ daily - {name}
+          <strong>${price}</strong>/ daily - {name}
         </div>
     </div>
   )
