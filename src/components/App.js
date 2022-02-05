@@ -41,7 +41,12 @@ const App = () => {
         <div className="flats">
           {flats.map(({ ...props }) => {
             return (
-              <Flat key={props.id} {...props} onSelect={handleFlatSelect} />
+              <Flat
+                key={props.id}
+                {...props}
+                onSelect={handleFlatSelect}
+                selected={selectedFlat === props.id}
+              />
             );
           })}
         </div>
