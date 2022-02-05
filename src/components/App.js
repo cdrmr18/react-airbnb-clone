@@ -45,9 +45,13 @@ const App = () => {
           containerStyle={{ height: '100vh', width: '100%' }}
           style="mapbox://styles/mapbox/streets-v8"
         >
-          <Marker coordinates={[2.3522, 48.8566]} anchor="bottom">
-            <FlatMarker />
-          </Marker>
+          {flats.map(({ id, lat, lng, ...props }) => {
+            return (
+              <Marker key={id} coordinates={[lng, lat]} anchor="bottom">
+                <FlatMarker {...props} />;
+              </Marker>
+            );
+          })}
         </Map>
       </div>
     </div>
