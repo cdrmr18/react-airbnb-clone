@@ -16,6 +16,8 @@ const API_URL =
 
 const App = () => {
   const [flats, setFlats] = useState([]);
+  const [center, setCenter] = useState([2.3522, 48.8566]);
+  const [selectedFlat, setSelectedFlat] = useState();
 
   useEffect(() => {
     document.title = `Airbnb - ${flats.length} flats`;
@@ -27,13 +29,20 @@ const App = () => {
       .then((json) => setFlats(json));
   }, []);
 
+  const handleFlatSelect = (id, lng, lat) => {
+    setCenter([lng, lat]);
+    setSelectedFlat(id);
+  };
+
   return (
     <div className="app">
       <div className="main">
         <input type="search" className="search" />
         <div className="flats">
-          {flats.map(({ id, ...props }) => {
-            return <Flat key={id} {...props} />;
+          {flats.map(({ ...props }) => {
+            return (
+              <Flat key={props.id} {...props} onSelect={handleFlatSelect} />
+            );
           })}
         </div>
       </div>
@@ -41,14 +50,14 @@ const App = () => {
       <div className="map">
         <Map
           zoom={[14]}
-          center={[2.3522, 48.8566]}
+          center={center}
           containerStyle={{ height: '100vh', width: '100%' }}
           style="mapbox://styles/mapbox/streets-v8"
         >
           {flats.map(({ id, lat, lng, ...props }) => {
             return (
               <Marker key={id} coordinates={[lng, lat]} anchor="bottom">
-                <FlatMarker {...props} />;
+                <FlatMarker {...props} selected={selectedFlat === id} />;
               </Marker>
             );
           })}

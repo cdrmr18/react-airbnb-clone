@@ -1,8 +1,9 @@
 import './FlatMarker.scss'
 
-const FlatMarker = ({price, priceCurrency}) => {
+const FlatMarker = ({price, priceCurrency, selected = false}) => {
+
   return (
-    <div className='marker'>{price} {priceCurrency}</div>
+    <div className={selected ? 'marker selected': 'marker'}>{price} {priceCurrency}</div>
   )
 };
 
