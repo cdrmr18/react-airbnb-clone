@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.scss';
 import './Flat.scss';
+import './Search.scss';
 import Flat from './Flat';
 import { useEffect, useState } from 'react';
 import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
@@ -18,6 +19,7 @@ const App = () => {
   const [flats, setFlats] = useState([]);
   const [center, setCenter] = useState([2.3522, 48.8566]);
   const [selectedFlat, setSelectedFlat] = useState();
+  const [filterText, setFilterText] = useState();
 
   useEffect(() => {
     document.title = `Airbnb - ${flats.length} flats`;
@@ -34,12 +36,21 @@ const App = () => {
     setSelectedFlat(id);
   };
 
+  const handleFilter = (e) => {
+    const { value } = e.target;
+    setFilterText(value);
+  };
+
+  const filteredFlats = flats.filter((flat) => {
+    return flat.name.match(new RegExp(filterText, 'i'));
+  });
+
   return (
     <div className="app">
       <div className="main">
-        <input type="search" className="search" />
+        <input type="search" className="search" onChange={handleFilter} />
         <div className="flats">
-          {flats.map(({ ...props }) => {
+          {filteredFlats.map(({ ...props }) => {
             return (
               <Flat
                 key={props.id}
