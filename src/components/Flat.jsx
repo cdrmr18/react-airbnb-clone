@@ -1,9 +1,9 @@
-const Flat = ({price, name, img}) => {
+const Flat = ({price, name, priceCurrency, imageUrl}) => {
   return (
     <div className="flat">
-      <img alt={name} src={img} className="flat-picture" />
+      <img alt={name} src={imageUrl} className="flat-picture" />
         <div className="flat-title">
-          <strong>${price}</strong>/ daily - {name}
+          <strong>{price} {priceCurrency}</strong>/ daily - {name}
         </div>
     </div>
   )
